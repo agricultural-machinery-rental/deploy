@@ -13,7 +13,7 @@ services:
       timeout: 5s
       retries: 10
 
-  web:
+  backend:
     image: $${DOCKER_HUB_USERNAME}/amr:latest
     restart: always
     volumes:
