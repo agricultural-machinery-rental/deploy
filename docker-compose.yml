@@ -14,7 +14,7 @@ services:
       retries: 10
 
   backend:
-    image: $${DOCKER_HUB_USERNAME}/amr:latest
+    image: ${DOCKER_HUB_USERNAME}/amr:latest
     restart: always
     volumes:
       - static_value:/app/static/
