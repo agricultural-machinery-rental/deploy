@@ -27,6 +27,13 @@ services:
     env_file:
       - ./.env
 
+  frontend:
+    image: ${FRONTEND_DOCKERHUB_USERNAME}/amr:latest
+    container_name: frontend
+    restart: always
+    ports:
+      - "3000:3000"
+
   nginx:
     image: nginx:1.25.1-alpine
     container_name: nginx
