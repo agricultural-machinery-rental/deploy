@@ -14,6 +14,15 @@ services:
       timeout: 5s
       retries: 10
 
+  chadburn:
+    image: premoweb/chadburn:latest
+    container_name: chadburn
+    depends_on:
+      - backend
+    command: daemon
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+
   backend:
     image: ${DOCKER_HUB_USERNAME}/amr:latest
     container_name: backend
@@ -26,6 +35,10 @@ services:
         condition: service_healthy
     env_file:
       - ./.env
+    labels:
+      chadburn.enabled: "true"
+      chadburn.job-exec.datecron.schedule: "@every 51m"
+      chadburn.job-exec.datecron.command: "python manage.py runcrons"
 
   frontend:
     image: ${FRONTEND_DOCKERHUB_USERNAME}/amr:latest
@@ -57,7 +70,7 @@ services:
       - nginx
     environment:
       EMAIL: agropark.robot@gmail.com
-      DOMAINS: agropark.acceleratorpracticum.ru
+      DOMAINS: agropark.sytes.net
       AUTHENTICATOR: webroot
       WEBROOT_PATH: /var/www/letsencrypt
       POST_HOOK_CMD: docker kill -s HUP $$(docker ps --filter "name=nginx" | awk '{print $$1}')

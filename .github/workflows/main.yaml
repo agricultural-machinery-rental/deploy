@@ -1,8 +1,9 @@
 name: Pull to Prod
 on:
-  push:
+  pull_request:
+    types: closed
     branches:
-      - develop
+      - main
 jobs:
   pull:
     name: Pull repository to Server
