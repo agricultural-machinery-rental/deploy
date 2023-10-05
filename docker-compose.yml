@@ -70,7 +70,7 @@ services:
       - nginx
     environment:
       EMAIL: agropark.robot@gmail.com
-      DOMAINS: agropark.acceleratorpracticum.ru
+      DOMAINS: agropark.sytes.net
       AUTHENTICATOR: webroot
       WEBROOT_PATH: /var/www/letsencrypt
       POST_HOOK_CMD: docker kill -s HUP $$(docker ps --filter "name=nginx" | awk '{print $$1}')
